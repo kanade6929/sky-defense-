@@ -1,1 +1,1 @@
-window.SKY_BUILD = {"label": "Demo v0.7", "date": "20261026-1159", "wasm": "game_wasm.gz.wasm", "wasmSize": 39514754, "wasmGz": 10054758, "pck": "game_pck.gz.wasm", "pckSize": 9851656, "pckGz": 9311116};
+window.SKY_BUILD = {"label": "Demo v0.7.1", "date": "20261026-2021", "wasm": "game_wasm.gz.wasm", "wasmSize": 39514754, "wasmGz": 10054758, "pck": "game_pck.gz.wasm", "pckSize": 16324432, "pckGz": 15759460};
