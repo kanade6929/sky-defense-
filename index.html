@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
+<title>苍穹防卫圈</title>
+<style>
+/* 单屏游戏页：全屏画布 + 启动遮罩。固定深色，不随主题变 */
+:root { --bg: #07090c; --panel: #0d141a; --line: #6bf2ff; --dim: #6f8f99; --gold: #ffd24d; --fg: #e9f6f8; color-scheme: dark; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--fg); overflow: hidden; touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; }
+#canvas { display: block; position: fixed; inset: 0; width: 100%; height: 100%; outline: none; background: var(--bg); }
+#boot { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; background: radial-gradient(ellipse at 50% 70%, #1a2730 0%, var(--bg) 70%); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); text-align: center; z-index: 2; }
+#boot h1 { margin: 0; font-size: clamp(28px, 7vmin, 56px); letter-spacing: 0.25em; text-indent: 0.25em; color: var(--line); text-shadow: 0 0 18px rgba(107, 242, 255, 0.45); font-weight: 700; }
+#boot .ver { font-size: 12px; color: var(--dim); letter-spacing: 0.15em; font-family: ui-monospace, Menlo, Consolas, monospace; }
+#bar { width: min(320px, 70vw); height: 6px; border: 1px solid var(--line); padding: 2px; }
+#bar i { display: block; height: 100%; width: 0; background: var(--line); transition: width 0.2s; }
+#msg { font-size: 14px; color: var(--dim); min-height: 1.4em; }
+#go { font: inherit; font-size: 18px; letter-spacing: 0.2em; color: var(--bg); background: var(--gold); border: 0; padding: 12px 40px; cursor: pointer; clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%); }
+#go:focus-visible { outline: 2px solid var(--line); outline-offset: 4px; }
+#tips { font-size: 12px; color: var(--dim); line-height: 1.7; max-width: 34em; }
+#err { display: none; font-size: 12px; color: #ffb3b3; white-space: pre-wrap; text-align: left; max-width: 90vw; max-height: 40vh; overflow: auto; background: #2a1316; padding: 10px; border: 1px solid #a33; }
+#rotate { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; flex-direction: column; gap: 14px; background: var(--bg); color: var(--line); z-index: 3; font-size: 18px; letter-spacing: 0.1em; }
+#rotate .phone { width: 34px; height: 58px; border: 3px solid var(--line); border-radius: 6px; animation: turn 1.8s ease-in-out infinite; }
+@keyframes turn { 0%, 30% { transform: rotate(0); } 60%, 100% { transform: rotate(-90deg); } }
+@media (orientation: portrait) and (max-width: 900px) { #rotate { display: flex; } }
+@media (prefers-reduced-motion: reduce) { #rotate .phone { animation: none; transform: rotate(-90deg); } #bar i { transition: none; } }
+</style>
+</head>
+<body>
+
+<canvas id="canvas" tabindex="0"></canvas>
+
+<div id="boot">
+  <h1>苍穹防卫圈</h1>
+  <div class="ver" id="ver">DEMO</div>
+  <div id="bar"><i></i></div>
+  <div id="msg">正在下载游戏数据…</div>
+  <button id="go" hidden>出 击</button>
+  <div id="tips">左半屏拖动：飞行方向和瞄准 · 右侧按住「射击」<br>投弹 · 减速 · 冲刺 · 能量满后出现「变形」 · 靠近塔位出现「建造」</div>
+  <div id="err"></div>
+</div>
+
+<div id="rotate"><div class="phone"></div>请把手机横过来</div>
+
+<script src="build.js"></script>
+<script src="index.js"></script>
+<script>
+(function () {
+  const BUILD = window.SKY_BUILD || {};
+  const $ = (id) => document.getElementById(id);
+  $('ver').textContent = (BUILD.label || 'DEMO') + (BUILD.date ? ' · ' + BUILD.date : '');
+  const bar = document.querySelector('#bar i');
+  const showErr = (e) => { const el = $('err'); el.style.display = 'block'; el.textContent += (e && e.stack ? e.stack : String(e)) + '\n' + navigator.userAgent + '\n'; $('msg').textContent = '出错了，把下面的文字截图发给 Claude'; };
+  window.addEventListener('error', (ev) => { if (ev.filename) showErr(ev.error || ev.message); });
+  window.addEventListener('unhandledrejection', (ev) => showErr(ev.reason));
+
+  // 游戏文件以 gzip 压缩发布（后缀 .gz.wasm），下载后在浏览器里解压，再交给 Godot
+  const FILES = { 'index.wasm': BUILD.wasm, 'index.pck': BUILD.pck };
+  const loaded = {};
+  let got = 0;
+  const total = (BUILD.wasmGz || 0) + (BUILD.pckGz || 0);
+
+  async function gunzip(buf) {
+    const u8 = new Uint8Array(buf);
+    if (!(u8[0] === 0x1f && u8[1] === 0x8b)) return buf;  // 服务器已经解压过
+    if (window.DecompressionStream) {
+      return new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
+    }
+    await new Promise((ok, bad) => { const s = document.createElement('script'); s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js'; s.onload = ok; s.onerror = bad; document.head.appendChild(s); });
+    return window.pako.ungzip(u8).buffer;
+  }
+
+  async function download(name) {
+    const res = await fetch(FILES[name] + '?v=' + (BUILD.date || ''));
+    if (!res.ok) throw new Error(name + ' 下载失败：HTTP ' + res.status);
+    const reader = res.body.getReader();
+    const parts = [];
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      parts.push(value);
+      got += value.length;
+      if (total) bar.style.width = Math.min(100, got / total * 100) + '%';
+    }
+    loaded[name] = await gunzip(await new Blob(parts).arrayBuffer());
+  }
+
+  const realFetch = window.fetch.bind(window);
+  window.fetch = function (input, init) {
+    const url = typeof input === 'string' ? input : input.url;
+    for (const name in loaded) {
+      if (url.split('?')[0].endsWith(name)) {
+        const type = name.endsWith('.wasm') ? 'application/wasm' : 'application/octet-stream';
+        return Promise.resolve(new Response(loaded[name], { headers: { 'Content-Type': type, 'Content-Length': String(loaded[name].byteLength) } }));
+      }
+    }
+    return realFetch(input, init);
+  };
+
+  const engine = new Engine({
+    args: [], canvasResizePolicy: 2, executable: 'index', experimentalVK: false, focusCanvas: true,
+    fileSizes: { 'index.pck': BUILD.pckSize, 'index.wasm': BUILD.wasmSize }, gdextensionLibs: [],
+    ensureCrossOriginIsolationHeaders: false, emscriptenPoolSize: 8, godotPoolSize: 4,
+  });
+
+  const missing = Engine.getMissingFeatures({ threads: false });
+  if (missing.length) { showErr('浏览器缺少功能：' + missing.join(', ')); return; }
+
+  Promise.all([download('index.wasm'), download('index.pck')]).then(() => {
+    bar.style.width = '100%';
+    $('msg').textContent = '准备完毕';
+    $('go').hidden = false;
+  }, showErr);
+
+  $('go').addEventListener('click', async () => {
+    $('go').hidden = true;
+    $('msg').textContent = '启动中…';
+    const el = document.documentElement;
+    try { if (el.requestFullscreen) await el.requestFullscreen({ navigationUI: 'hide' }); } catch (e) {}
+    try { if (screen.orientation && screen.orientation.lock) await screen.orientation.lock('landscape'); } catch (e) {}
+    try { if (navigator.wakeLock) await navigator.wakeLock.request('screen'); } catch (e) {}
+    engine.startGame().then(() => { $('boot').remove(); }, showErr);
+  });
+}());
+</script>
+
+</body>
+</html>
