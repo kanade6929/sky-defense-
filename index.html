@@ -23,10 +23,6 @@ body { margin: 0; background: var(--bg); color: var(--fg); overflow: hidden; tou
 #dl:focus-visible { outline: 2px solid var(--line); outline-offset: 3px; }
 /* 只在有鼠标的电脑上显示下载按钮（手机继续玩网页版） */
 @media (hover: hover) and (pointer: fine) { #dl { display: inline-block; } }
-#apk { display: none; font-size: 13px; color: var(--line); border: 1px solid var(--line); padding: 8px 18px; text-decoration: none; letter-spacing: 0.08em; }
-#apk:focus-visible { outline: 2px solid var(--line); outline-offset: 3px; }
-/* 触屏手机：显示安卓安装包下载 */
-@media (pointer: coarse) { #apk { display: inline-block; } }
 #tips { font-size: 12px; color: var(--dim); line-height: 1.7; max-width: 34em; }
 #err { display: none; font-size: 12px; color: #ffb3b3; white-space: pre-wrap; text-align: left; max-width: 90vw; max-height: 40vh; overflow: auto; background: #2a1316; padding: 10px; border: 1px solid #a33; }
 #rotate { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; flex-direction: column; gap: 14px; background: var(--bg); color: var(--line); z-index: 3; font-size: 18px; letter-spacing: 0.1em; }
@@ -47,7 +43,6 @@ body { margin: 0; background: var(--bg); color: var(--fg); overflow: hidden; tou
   <div id="msg">正在下载游戏数据…</div>
   <button id="go" hidden>出 击</button>
   <a id="dl" href="downloads/SkyDefense-win.zip" download>电脑上更流畅：下载 Windows 版（约 47MB，解压后双击 SkyDefense.exe）</a>
-  <a id="apk" href="downloads/SkyDefense.apk" download>安卓手机更流畅：下载 APK 安装包（约 36MB）</a>
   <div id="tips">左半屏拖动：飞行方向和瞄准 · 战斗中自动开火<br>右侧：冲刺 · 投弹 · 减速 · 能量满后出现「变形」 · 靠近塔位出现「建造」</div>
   <div id="err"></div>
 </div>
