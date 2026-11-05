@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DODODA 下载</title>
+<meta name="description" content="DODODA：俯视角节奏动作肉鸽。Windows 试玩版下载。">
+<meta property="og:title" content="DODODA · 咚咚哒">
+<meta property="og:description" content="跟着节拍打出连招，把被静默的街区重新涂满颜色。Windows 试玩版。">
+<meta property="og:image" content="https://github.com/kanade6929/sky-defense-/releases/download/dododa-v0.2/hero.jpg">
+<style>
+/* 平面印刷 / 贴纸风：硬边、限色、无柔光。固定配色，不随系统深浅色变化 */
+:root {
+  --ink: #111111; --paper: #ECEAE4; --cobalt: #1F4BFF; --acid: #FFE600;
+  --magenta: #FF2E88; --orange: #FF8A00; --mint: #A8D5C8; --violet: #5B2BC9;
+  --danger: #FF4A2A; --concrete: #8C8F94;
+  --display: "Arial Black", "Helvetica Neue", Impact, "Microsoft YaHei", "PingFang SC", sans-serif;
+  --body: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
+  --mono: ui-monospace, Consolas, Menlo, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+body { margin: 0; color: var(--ink); background: var(--paper); font-family: var(--body); line-height: 1.6; overflow-x: hidden; }
+a { color: inherit; }
+img { display: block; max-width: 100%; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 16px; }
+.tiny { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; }
+
+/* 网点底纹 */
+.dots { background-image: radial-gradient(var(--ink) 1.1px, transparent 1.3px); background-size: 7px 7px; }
+
+/* 顶部条 */
+.top { border-bottom: 3px solid var(--ink); background: var(--ink); color: var(--paper); }
+.top .wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px; height: 40px; }
+.top b { color: var(--acid); }
+
+/* 主视觉 */
+.hero { position: relative; border-bottom: 3px solid var(--ink); overflow: hidden; background: var(--cobalt); }
+.hero-img { position: absolute; inset: 0; background: var(--cobalt) center / cover no-repeat; filter: saturate(1.1); }
+.hero-img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--cobalt) 0 34%, transparent 70%); mix-blend-mode: normal; }
+.hero .wrap { position: relative; padding-top: 64px; padding-bottom: 72px; }
+.band { position: absolute; left: -5%; right: -5%; height: 64px; background: var(--acid); border-block: 3px solid var(--ink); transform: rotate(-4deg); bottom: 26px; display: flex; align-items: center; overflow: hidden; white-space: nowrap; }
+.band span { font-family: var(--display); font-size: 30px; letter-spacing: 0.04em; padding-right: 28px; }
+.logo { font-family: var(--display); font-weight: 900; color: var(--paper); font-size: clamp(64px, 15vw, 188px); line-height: 0.82; letter-spacing: -0.02em; margin: 0; transform: scaleY(1.12); transform-origin: left top; -webkit-text-stroke: 3px var(--ink); paint-order: stroke fill; text-shadow: 6px 6px 0 var(--ink); }
+.logo i { font-style: normal; color: var(--acid); }
+.kana { margin: 34px 0 6px; display: inline-block; background: var(--paper); border: 3px solid var(--ink); padding: 2px 12px; font-weight: 900; font-size: 18px; transform: rotate(-2deg); box-shadow: 4px 4px 0 var(--ink); }
+.lede { color: var(--paper); font-size: clamp(16px, 2.2vw, 20px); max-width: 30em; margin: 18px 0 30px; font-weight: 700; text-shadow: 2px 2px 0 var(--ink); }
+.cta { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 60px; }
+.btn { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font-family: var(--display); font-size: clamp(18px, 3vw, 26px); color: var(--ink); background: var(--acid); border: 3px solid var(--ink); padding: 14px 26px; box-shadow: 6px 6px 0 var(--ink); transition: transform 80ms, box-shadow 80ms; clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%); }
+.btn:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--ink); }
+.btn:active { transform: translate(4px, 4px); box-shadow: 2px 2px 0 var(--ink); }
+.btn:focus-visible { outline: 3px solid var(--magenta); outline-offset: 4px; }
+.btn small { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; }
+.meta { color: var(--paper); font-size: 13px; text-shadow: 1px 1px 0 var(--ink); }
+
+/* 区块标题 */
+section { padding: 56px 0; border-bottom: 3px solid var(--ink); }
+.h { display: flex; align-items: baseline; gap: 14px; margin: 0 0 26px; flex-wrap: wrap; }
+.h b { font-family: var(--display); font-size: clamp(34px, 6vw, 60px); line-height: 1; letter-spacing: -0.01em; }
+.h .tag { background: var(--ink); color: var(--paper); padding: 2px 8px; }
+
+/* 截图贴纸墙 */
+.shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.shot { margin: 0; background: #fff; border: 3px solid var(--ink); padding: 8px 8px 6px; box-shadow: 5px 5px 0 var(--ink); }
+.shot:nth-child(3n+1) { transform: rotate(-1.2deg); }
+.shot:nth-child(3n+2) { transform: rotate(0.8deg); }
+.shot:nth-child(3n) { transform: rotate(-0.4deg); }
+.shot img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border: 2px solid var(--ink); background: var(--concrete); }
+.shot figcaption { display: flex; justify-content: space-between; gap: 8px; padding-top: 6px; font-weight: 900; font-size: 14px; }
+
+/* 玩法 */
+.how { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.card { border: 3px solid var(--ink); background: #fff; padding: 18px 18px 16px; box-shadow: 5px 5px 0 var(--ink); position: relative; }
+.card .no { position: absolute; top: -16px; left: 14px; font-family: var(--display); font-size: 22px; background: var(--magenta); color: var(--paper); border: 3px solid var(--ink); padding: 0 10px; }
+.card h3 { margin: 8px 0 6px; font-size: 20px; }
+.card p { margin: 0; font-size: 15px; }
+.keys { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0; align-items: center; }
+kbd { font-family: var(--display); font-size: 16px; min-width: 34px; height: 34px; padding: 0 8px; display: inline-flex; align-items: center; justify-content: center; background: var(--paper); border: 3px solid var(--ink); border-bottom-width: 6px; }
+kbd.j { background: var(--acid); } kbd.k { background: var(--mint); } kbd.l { background: var(--magenta); color: var(--paper); }
+.beat { width: 8px; height: 8px; background: var(--ink); border-radius: 50%; }
+
+/* 键位表 */
+.table { width: 100%; border-collapse: collapse; border: 3px solid var(--ink); background: #fff; font-size: 15px; }
+.table th, .table td { border: 2px solid var(--ink); padding: 8px 12px; text-align: left; vertical-align: middle; }
+.table th { background: var(--ink); color: var(--paper); font-weight: 900; }
+
+/* 安装步骤 */
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 48px 1fr; gap: 12px; align-items: start; background: #fff; border: 3px solid var(--ink); padding: 12px; }
+.steps li::before { content: counter(s); font-family: var(--display); font-size: 24px; width: 40px; height: 40px; display: grid; place-items: center; background: var(--cobalt); color: var(--paper); border: 3px solid var(--ink); }
+.req { margin-top: 18px; font-size: 14px; }
+
+footer { background: var(--ink); color: var(--paper); padding: 26px 0 40px; font-size: 13px; }
+footer a { color: var(--acid); }
+
+@media (max-width: 860px) {
+  .shots, .how { grid-template-columns: 1fr 1fr; }
+  .hero-img::after { background: linear-gradient(180deg, transparent 0 30%, var(--cobalt) 85%); }
+}
+@media (max-width: 560px) {
+  .shots, .how { grid-template-columns: 1fr; }
+  .top .wrap .tiny:last-child { display: none; }
+  .band span { font-size: 22px; }
+  .table { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+</style>
+</head>
+<body>
+
+<div class="top"><div class="wrap">
+  <span class="tiny"><b>DODODA</b> · RHYTHM ACTION ROGUELIKE</span>
+  <span class="tiny" id="ver-top">DEMO v0.2 · WINDOWS</span>
+</div></div>
+
+<header class="hero">
+  <div class="hero-img" style="background-image:url('https://github.com/kanade6929/sky-defense-/releases/download/dododa-v0.2/hero.jpg')"></div>
+  <div class="wrap">
+    <h1 class="logo">DO<i>DO</i>DA</h1>
+    <div class="kana">咚 咚 哒！</div>
+    <p class="lede">城市被“静默协议”抽走了声音和颜色。踩着节拍出拳、剪斩、开炮，打出连招，把整条街重新涂满。</p>
+    <div class="cta">
+      <a class="btn" id="dl" href="https://github.com/kanade6929/sky-defense-/releases/download/dododa-v0.2/DODODA.exe">下载 Windows 版 <small id="dl-size">EXE · 125MB</small></a>
+      <span class="meta">免安装 · 下载后直接双击运行 · <a href="https://github.com/kanade6929/sky-defense-/releases/download/dododa-v0.2/DODODA-win.zip">压缩包版（57MB）</a></span>
+    </div>
+  </div>
+  <div class="band" aria-hidden="true"><span>DO! DO! DA! ★ GROOVE ★ DROP!! ★ RIOT ★ DO! DO! DA! ★ GROOVE ★ DROP!! ★ RIOT ★ DO! DO! DA! ★ GROOVE ★</span></div>
+</header>
+
+<section class="dots" style="background-color:var(--paper)">
+  <div class="wrap">
+    <div class="h"><b>画面</b><span class="tiny tag">SCREENSHOTS</span></div>
+    <div class="shots">
+      <figure class="shot"><img src="https://github.com/kanade6929/sky-defense-/releases/download/dododa-v0.2/01_title.jpg" alt="标题画面" loading="lazy"><figcaption><span>标题</span><span class="tiny">01</span></figcaption></figure>
+      <figure class="shot"><img src="https://github.com/kanade6929/sky-defense-/releases/download/dododa-v0.2/02_battle.jpg" alt="战斗画面" loading="lazy"><figcaption><span>战斗</span><span class="tiny">02</span></figcaption></figure>
+      <figure class="shot"><img src="https://github.com/kanade6929/sky-defense-/releases/download/dododa-v0.2/03_pack.jpg" alt="开卡包" loading="lazy"><figcaption><span>开卡包</span><span class="tiny">03</span></figcaption></figure>
+      <figure class="shot"><img src="https://github.com/kanade6929/sky-defense-/releases/download/dododa-v0.2/04_drop.jpg" alt="DROP 大招" loading="lazy"><figcaption><span>DROP!!</span><span class="tiny">04</span></figcaption></figure>
+      <figure class="shot"><img src="https://github.com/kanade6929/sky-defense-/releases/download/dododa-v0.2/05_boss.jpg" alt="Boss 战" loading="lazy"><figcaption><span>Boss：静默指挥者</span><span class="tiny">05</span></figcaption></figure>
+      <figure class="shot"><img src="https://github.com/kanade6929/sky-defense-/releases/download/dododa-v0.2/06_results.jpg" alt="结算画面" loading="lazy"><figcaption><span>结算</span><span class="tiny">06</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="h"><b>怎么玩</b><span class="tiny tag">HOW TO PLAY</span></div>
+    <div class="how">
+      <div class="card"><span class="no">1</span><h3>按键马上出招</h3><p>J 重拳、K 剪斩、L 音波弹，按下就打。跟着节拍按，伤害更高、地面浮得更高。按不准也不会被罚。</p>
+        <div class="keys"><kbd class="j">J</kbd><kbd class="k">K</kbd><kbd class="l">L</kbd></div></div>
+      <div class="card"><span class="no">2</span><h3>按出连招</h3><p>一拍按一下，按出固定顺序就会放技能。比如 J、J、K：向前冲锋斩。</p>
+        <div class="keys"><kbd class="j">J</kbd><span class="beat"></span><kbd class="j">J</kbd><span class="beat"></span><kbd class="k">K</kbd></div></div>
+      <div class="card"><span class="no">3</span><h3>攒满放 DROP</h3><p>连招越多，GROOVE 越高。槽满后在小节第一拍同时按 J+K+L，全屏大招，整条街一起变色。</p>
+        <div class="keys"><kbd class="j">J</kbd>+<kbd class="k">K</kbd>+<kbd class="l">L</kbd></div></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--mint)">
+  <div class="wrap">
+    <div class="h"><b>键位</b><span class="tiny tag">CONTROLS</span></div>
+    <table class="table">
+      <tr><th>按键</th><th>作用</th></tr>
+      <tr><td><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd></td><td>移动</td></tr>
+      <tr><td><kbd class="j">J</kbd> <kbd class="k">K</kbd> <kbd class="l">L</kbd></td><td>重拳 / 剪斩 / 音波弹（按住 J 两拍再松开：蓄力重击）</td></tr>
+      <tr><td><kbd>空格</kbd></td><td>闪避（踩在拍上闪避，周围敌人会被定住）</td></tr>
+      <tr><td><kbd>Esc</kbd></td><td>暂停 / 设置（音量、延迟校准、像素画风开关）</td></tr>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="h"><b>安装</b><span class="tiny tag">INSTALL</span></div>
+    <ol class="steps">
+      <li><div>点上面的黄色按钮，下载 <b>DODODA.exe</b>（单个文件，不用解压）。网速慢可以下压缩包版，解压后一样。</div></li>
+      <li><div>双击 <b>DODODA.exe</b>。如果 Windows 提示“已保护你的电脑”，点 <b>更多信息 → 仍要运行</b>（试玩版没有签名证书）。</div></li>
+      <li><div>节拍听起来对不上？在 <b>Esc → 设置 → 延迟校准</b> 里跟着节拍按几下，会自动调好。</div></li>
+    </ol>
+    <p class="req tiny">需求：Windows 10/11 64 位 · 支持 Vulkan 的显卡 · 建议戴耳机</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><b>DODODA</b> 试玩版 · 制作：kanade · 音效含 CC BY 素材，署名见游戏内“制作人员”。</p>
+    <p class="tiny">THIS IS AN EARLY DEMO. CHARACTERS AND ENEMIES ARE PLACEHOLDERS.</p>
+  </div>
+</footer>
+
+<script>
+// 截图还没传上来时：隐藏坏图，整组都没有就隐藏整个区块；主视觉没有图就只显示底色网点
+(function () {
+  var figs = document.querySelectorAll('.shot');
+  var left = figs.length;
+  figs.forEach(function (f) {
+    var img = f.querySelector('img');
+    img.addEventListener('error', function () {
+      f.remove();
+      if (--left === 0) { var sec = document.querySelector('.shots').closest('section'); if (sec) sec.remove(); }
+    });
+  });
+  var hero = new Image();
+  hero.onerror = function () { var h = document.querySelector('.hero-img'); h.style.backgroundImage = 'none'; h.classList.add('dots'); h.style.opacity = '0.25'; };
+  hero.src = 'https://github.com/kanade6929/sky-defense-/releases/download/dododa-v0.2/hero.jpg';
+})();
+</script>
+</body>
+</html>
