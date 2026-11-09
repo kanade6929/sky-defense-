@@ -111,7 +111,7 @@ footer a { color: var(--acid); }
 
 <div class="top"><div class="wrap">
   <span class="tiny"><b>DODODA</b> · RHYTHM ACTION ROGUELIKE</span>
-  <span class="tiny" id="ver-top">DEMO v0.7h · 射击版 · WINDOWS</span>
+  <span class="tiny" id="ver-top">DEMO v0.8 · 竞技舞台版 · WINDOWS</span>
 </div></div>
 
 <header class="hero">
@@ -121,7 +121,7 @@ footer a { color: var(--acid); }
     <div class="kana">咚 咚 哒！</div>
     <p class="lede">城市被“静默协议”抽走了声音和颜色。鼠标指哪打哪，踩着节拍出拳、开炮，打出连招，把整条街重新涂满。</p>
     <div class="cta">
-      <a class="btn" id="dl" href="../downloads/DODODA-win.zip" download>下载 Windows 版 <small id="dl-size">ZIP · 80MB</small></a>
+      <a class="btn" id="dl" href="../downloads/DODODA-win.zip" download>下载 Windows 版 <small id="dl-size">ZIP · 91MB</small></a>
       <span class="meta">免安装 · 解压后双击 <b>DODODA.exe</b></span>
     </div>
   </div>
@@ -146,12 +146,12 @@ footer a { color: var(--acid); }
   <div class="wrap">
     <div class="h"><b>怎么玩</b><span class="tiny tag">HOW TO PLAY</span></div>
     <div class="how">
-      <div class="card"><span class="no">1</span><h3>鼠标指哪打哪</h3><p>鼠标决定朝向。左键近战（连点 3 下是重击），右键音波弹。跟着节拍按，伤害更高、地面浮得更高；打败怪物会回血。按不准也不会被罚。狂点没用：每个键最快半拍出一下，跟着拍子按最强。</p>
+      <div class="card"><span class="no">1</span><h3>鼠标指哪打哪</h3><p>鼠标决定朝向。左键能量炮：点一下打出 4 连发，按住一直打。右键是开局选的重武器（镭射、蓄力狙击、霰弹、机枪），用完要等冷却。打爆怪物会回血。</p>
         <div class="keys"><kbd class="j">左键</kbd><kbd class="l">右键</kbd></div></div>
-      <div class="card"><span class="no">2</span><h3>按出连招</h3><p>一拍按一下，按出固定顺序就会放技能。比如 左、左、右：向前冲锋拳。开卡包能学到新连招。</p>
-        <div class="keys"><kbd class="j">左</kbd><span class="beat"></span><kbd class="j">左</kbd><span class="beat"></span><kbd class="l">右</kbd></div></div>
-      <div class="card"><span class="no">3</span><h3>左右键一起按</h3><p>平时是音障：把身边的弹幕全部弹回去。连招越多 GROOVE 越高，槽满后在小节第一拍一起按就是 DROP，全屏大招，整条街一起变色。Boss 防御时打不动，等它出完招露出破绽再踩拍输出。</p>
-        <div class="keys"><kbd class="j">左</kbd>+<kbd class="l">右</kbd></div></div>
+      <div class="card"><span class="no">2</span><h3>开卡包变强</h3><p>地上会掉卡包，走过去就能捡。三选一：升级武器、拿 Shift 配件（钩锁、低音炮）、凑同一品牌的套装。不同卡会联动，组出你自己的流派。</p>
+        <div class="keys"><kbd>Shift</kbd></div></div>
+      <div class="card"><span class="no">3</span><h3>攒满 FEVER</h3><p>打爆怪、清弹幕会攒热度，满了按 Q：震碎周围，射速变快，全场观众跟着疯。精英头上写着它怕什么，换对的打法打它。Boss 出完招会露出破绽，抓住机会集火。</p>
+        <div class="keys"><kbd class="l">Q</kbd></div></div>
     </div>
   </div>
 </section>
@@ -163,10 +163,12 @@ footer a { color: var(--acid); }
       <tr><th>按键</th><th>作用</th></tr>
       <tr><td><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd></td><td>移动</td></tr>
       <tr><td>鼠标</td><td>决定朝向（指哪打哪）</td></tr>
-      <tr><td><kbd class="j">左键</kbd></td><td>近战：拳 → 剪 → 重击（连点 3 下）</td></tr>
-      <tr><td><kbd class="l">右键</kbd></td><td>音波弹（按住 2 拍再松开：蓄力重击，一条直线全打穿）</td></tr>
-      <tr><td><kbd class="j">左</kbd>+<kbd class="l">右</kbd></td><td>音障：弹开弹幕 / 槽满时小节第一拍按 = DROP</td></tr>
-      <tr><td><kbd>空格</kbd></td><td>闪避（踩在拍上闪避，周围敌人会被定住）</td></tr>
+      <tr><td><kbd class="j">左键</kbd></td><td>能量炮：点一下 4 连发，按住一直打</td></tr>
+      <tr><td><kbd class="l">右键</kbd></td><td>重武器（狙击要按住蓄力，松开发射）</td></tr>
+      <tr><td><kbd>Shift</kbd></td><td>配件（靠卡牌获得：钩锁 / 低音炮）</td></tr>
+      <tr><td><kbd>空格</kbd></td><td>冲刺：冲刺时无敌，路上撞到的怪都吃一记重拳</td></tr>
+      <tr><td><kbd>Q</kbd></td><td>FEVER（热度满了才能用）</td></tr>
+      <tr><td><kbd>Tab</kbd></td><td>查看卡组</td></tr>
       <tr><td><kbd>Esc</kbd></td><td>暂停 / 设置（音量、延迟校准、像素画风开关）</td></tr>
     </table>
   </div>
@@ -176,10 +178,9 @@ footer a { color: var(--acid); }
   <div class="wrap">
     <div class="h"><b>安装</b><span class="tiny tag">INSTALL</span></div>
     <ol class="steps">
-      <li><div>点上面的黄色按钮，下载 <b>DODODA-win.zip</b>（约 80MB）。</div></li>
-      <li><div>右键 → 全部解压缩，放到任意文件夹（解压后约 155MB）。</div></li>
+      <li><div>点上面的黄色按钮，下载 <b>DODODA-win.zip</b>（约 91MB）。</div></li>
+      <li><div>右键 → 全部解压缩，放到任意文件夹（解压后约 190MB）。</div></li>
       <li><div>双击 <b>DODODA.exe</b>。如果 Windows 提示“已保护你的电脑”，点 <b>更多信息 → 仍要运行</b>（试玩版没有签名证书）。</div></li>
-      <li><div>节拍听起来对不上？在 <b>Esc → 设置 → 延迟校准</b> 里跟着节拍按几下，会自动调好。</div></li>
     </ol>
     <p class="req tiny">需求：Windows 10/11 64 位 · 支持 Vulkan 的显卡 · 建议戴耳机</p>
   </div>
