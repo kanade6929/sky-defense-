@@ -51,6 +51,7 @@ img { display: block; max-width: 100%; }
 .btn:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--ink); }
 .btn:active { transform: translate(4px, 4px); box-shadow: 2px 2px 0 var(--ink); }
 .btn:focus-visible { outline: 3px solid var(--magenta); outline-offset: 4px; }
+.btn.alt { background: var(--paper); }
 .btn small { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; }
 .meta { color: var(--paper); font-size: 13px; text-shadow: 1px 1px 0 var(--ink); }
 
@@ -111,7 +112,7 @@ footer a { color: var(--acid); }
 
 <div class="top"><div class="wrap">
   <span class="tiny"><b>DODODA</b> · RHYTHM ACTION ROGUELIKE</span>
-  <span class="tiny" id="ver-top">DEMO v1.0 · 潮牌构筑版 · 2026.11.19</span>
+  <span class="tiny" id="ver-top">DEMO v1.0 · 潮牌构筑版 · WINDOWS / ANDROID</span>
 </div></div>
 
 <header class="hero">
@@ -122,7 +123,8 @@ footer a { color: var(--acid); }
     <p class="lede">城市被“静默协议”抽走了声音和颜色。鼠标指哪打哪，踩着节拍出拳、开炮，打出连招，把整条街重新涂满。</p>
     <div class="cta">
       <a class="btn" id="dl" href="../downloads/DODODA-win.zip" download>下载 Windows 版 <small id="dl-size">ZIP · 94MB</small></a>
-      <span class="meta">免安装 · 解压后双击 <b>DODODA.exe</b></span>
+      <a class="btn alt" id="dl-android" href="../downloads/DODODA-android.apk" download>下载 Android 版 <small>APK · 87MB</small></a>
+      <span class="meta">电脑：解压后双击 <b>DODODA.exe</b> · 手机：下载后点开 APK 安装</span>
     </div>
   </div>
   <div class="band" aria-hidden="true"><span>DO! DO! DA! ★ GROOVE ★ DROP!! ★ RIOT ★ DO! DO! DA! ★ GROOVE ★ DROP!! ★ RIOT ★ DO! DO! DA! ★ GROOVE ★</span></div>
@@ -171,6 +173,14 @@ footer a { color: var(--acid); }
       <tr><td><kbd>Tab</kbd></td><td>查看卡组</td></tr>
       <tr><td><kbd>Esc</kbd></td><td>暂停 / 设置（音量、像素画风开关）</td></tr>
     </table>
+    <table class="table" style="margin-top:22px">
+      <tr><th>手机</th><th>作用</th></tr>
+      <tr><td>左半屏按住拖动</td><td>移动（摇杆出现在手指下）</td></tr>
+      <tr><td>右下大圆键 按住</td><td>开火，自动锁最近的怪；按住往外拖 = 手动瞄准</td></tr>
+      <tr><td>重武</td><td>点一下朝锁定目标打；按住拖动瞄准，松手发射</td></tr>
+      <tr><td>冲刺 / 配件 / FEVER</td><td>点一下；按钮上的暗色扇形是冷却</td></tr>
+      <tr><td>右上 Ⅱ / 返回键</td><td>暂停</td></tr>
+    </table>
   </div>
 </section>
 
@@ -182,6 +192,7 @@ footer a { color: var(--acid); }
       <li><div>右键 → 全部解压缩，放到任意文件夹（解压后约 170MB）。</div></li>
       <li><div>双击 <b>DODODA.exe</b>。如果 Windows 提示“已保护你的电脑”，点 <b>更多信息 → 仍要运行</b>（试玩版没有签名证书）。</div></li>
     </ol>
+    <p><b>Android：</b>手机浏览器下载 <b>DODODA-android.apk</b>（约 87MB），点开安装；第一次会提示“允许安装未知来源应用”，在弹出的设置里打开就行。需要 Android 7 以上、64 位手机，横屏玩。</p>
     <p class="req tiny">需求：Windows 10/11 64 位 · 支持 Vulkan 的显卡 · 建议戴耳机</p>
   </div>
 </section>
