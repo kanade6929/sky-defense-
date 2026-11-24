@@ -1,0 +1,25 @@
+name: dododa-release-v1.0.7
+on:
+  push:
+    branches: [dododa-release-v1.0.7]
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Join parts and verify
+        run: |
+          mkdir out
+          cat parts/DODODA-win.zip.part* > out/DODODA-win.zip
+          cat parts/DODODA-android.apk.part* > out/DODODA-android.apk
+          cd out && sha256sum -c ../parts/SHA256SUMS && ls -la
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create dododa-v1.0.7 out/DODODA-win.zip out/DODODA-android.apk \
+            --repo "${{ github.repository }}" --target main --prerelease \
+            --title "DODODA v1.0.7 · 第十轮反馈 + 安卓牌库修复" \
+            --notes "Windows x64 与 Android ARM64（versionCode 10，可覆盖安装）。包含第十轮试玩反馈（守关后四个拍卖台砸下、决赛 Boss 剪影换终混、Boss 闪身换位等）和安卓牌库点开后关不掉的修复。"
